@@ -986,6 +986,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (GstCaps *)fixate:(GstCaps *)new_caps
 {
+  GST_ELEMENT_ERROR (element, RESOURCE, NOT_FOUND,
+                          ("### Fixate call ###"), (NULL));
+
   GstStructure *structure;
 
   new_caps = gst_caps_make_writable (new_caps);
@@ -994,7 +997,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
   /* crank up to 11. This is what the presets do, but we don't use the presets
    * in ios >= 7.0 */
   gst_structure_fixate_field_nearest_int (structure, "height", G_MAXINT);
-  gst_structure_fixate_field_nearest_fraction (structure, "framerate", 30, 1);
+  // gst_structure_fixate_field_nearest_fraction (structure, "framerate", 30, 1);
 
   return gst_caps_fixate (new_caps);
 }
